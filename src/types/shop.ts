@@ -5,10 +5,10 @@ export interface Product {
     category: string;
     price: number;
     stock: number;
-    imageUrl: string;
+    image_url: string;
 }
 
 export interface CartItem extends Product {
     quantity: number;
-    greetingCardMessage?: string;
+    greetingCard?: string;
 }

@@ -28,14 +28,14 @@ interface Order {
 }
 
 export default function AdminPage() {
-  // Ganti PIN rahasia admin di sini
-  const ADMIN_PIN = "1357";
+  
+  const ADMIN_PIN = process.env.NEXT_PUBLIC_ADMIN_PIN;
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [pinInput, setPinInput] = useState("");
   const [activeTab, setActiveTab] = useState<"products" | "orders">("products");
 
-  // State Produk
+  
   const [products, setProducts] = useState<Product[]>([]);
   const [name, setName] = useState("");
   const [category, setCategory] = useState("Romantic");
@@ -45,7 +45,7 @@ export default function AdminPage() {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
 
-  // State Pesanan
+
   const [orders, setOrders] = useState<Order[]>([]);
 
   useEffect(() => {
@@ -88,7 +88,7 @@ export default function AdminPage() {
     let imageUrl =
       "https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=800&q=80";
 
-    // Upload foto ke Supabase Storage jika memilih file gambar
+    
     if (imageFile) {
       const fileExt = imageFile.name.split(".").pop();
       const fileName = `${Date.now()}.${fileExt}`;
@@ -110,7 +110,7 @@ export default function AdminPage() {
       imageUrl = publicUrlData.publicUrl;
     }
 
-    // Simpan data buket ke tabel products
+    
     const { error } = await supabase.from("products").insert([
       {
         name,
@@ -165,7 +165,7 @@ export default function AdminPage() {
       minimumFractionDigits: 0,
     }).format(angka);
 
-  // Layar Kunci PIN sebelum masuk dashboard
+  
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-[#FDF8F5] flex items-center justify-center p-6">
@@ -408,7 +408,7 @@ export default function AdminPage() {
             </div>
           </div>
         ) : (
-          /* Tab Pesanan Masuk */
+        
           <div className="space-y-4">
             <h2 className="font-serif text-lg font-bold text-stone-800">
               Daftar Pesanan Pembeli
